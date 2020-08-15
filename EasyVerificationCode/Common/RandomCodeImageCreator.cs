@@ -20,10 +20,7 @@ namespace EasyVerificationCode.Common
 
         //字体
         static readonly string[] Fonts = { "Verdana", "Microsoft Sans Serif", "Comic Sans MS", "Arial", "宋体" };
-
-        //间隔
-        const int SPACE = 5;
-
+        
         /// <summary>  
         /// 生成图像
         /// </summary>  
@@ -35,9 +32,10 @@ namespace EasyVerificationCode.Common
 
             Random random = new Random();
             byte[] imageBuffer = null;
+            int space = fontSize / 3;
 
             //定义图像的大小，生成图像的实例  
-            using (Bitmap image = new Bitmap(code.Length * (fontSize + SPACE), fontSize * 2))
+            using (Bitmap image = new Bitmap(code.Length * (fontSize + space), fontSize * 2))
             using (Graphics graphics = Graphics.FromImage(image))
             {
                 //背景设为白色  
@@ -59,15 +57,15 @@ namespace EasyVerificationCode.Common
                 char[] codeArr = code.ToCharArray();
                 for (int i = 0; i < codeArr.Length; i++)
                 {
-                    int characterFontSize = random.Next(fontSize, (int)(fontSize * 1.6));
+                    int characterFontSize = random.Next(fontSize, (int)(fontSize * 1.5));
                     int fontIndex = random.Next(Fonts.Length);
                     Font font = new Font(Fonts[fontIndex], characterFontSize, FontStyle.Bold);
 
                     int colorIndex = random.Next(FontColors.Length);
                     Brush brush = new SolidBrush(FontColors[colorIndex]);
 
-                    int x = i == 0 ? random.Next(SPACE) : (random.Next(SPACE) + fontSize) * i;
-                    int y = random.Next(fontSize / 4);
+                    int x = i == 0 ? random.Next(space) : (((space + fontSize) * i) - random.Next(space * 2));
+                    int y = random.Next(fontSize / 5);
                     //绘制一个验证字符  
                     graphics.DrawString(codeArr[i].ToString(), font, brush, x, y);
                 }

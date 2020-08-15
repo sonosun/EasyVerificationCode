@@ -13,8 +13,8 @@ namespace EasyVerificationCode
         /// <summary>
         /// 生成校验码
         /// </summary>
-        VerificationCode Create();
-
+        VerificationCode Create(VerificationCodeCreateParam param = null);
+        
         /// <summary>
         /// 验证校验码
         /// </summary>

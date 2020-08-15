@@ -21,26 +21,49 @@ namespace EasyVerificationCode
         /// 创建校验码
         /// </summary>
         /// <returns></returns>
-        public VerificationCode Create()
+        public VerificationCode Create(VerificationCodeCreateParam param = null)
         {
+            if (param == null)
+            {
+                param = new VerificationCodeCreateParam()
+                {
+                    CharacterCount = VerificationOptions.Default.CodeCharacterCount,
+                    FontSize = VerificationOptions.Default.CodeFontSize,
+                    Type = VerificationOptions.Default.CodeType
+                };
+            }
+
+            VerificationCode result = InnerCreate(param);
+            this.store.Add(result.Key, result.Code, VerificationOptions.Default.CodeCacheExpire);
+
+            return result;
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        private VerificationCode InnerCreate(VerificationCodeCreateParam param)
+        {
+            if (param == null) return null;
+
             VerificationCode result = new VerificationCode();
             result.Key = Guid.NewGuid().ToString();
 
-            switch (VerificationOptions.Default.CodeType)
+            switch (param.Type)
             {
                 case CodeCharacterTypeEnum.Character:
-                    result.Code = RandomCodeCreator.CreatRandomChar(VerificationOptions.Default.CodeCharacterCount);
+                    result.Code = RandomCodeCreator.CreatRandomChar(param.CharacterCount);
                     break;
                 case CodeCharacterTypeEnum.Number:
-                    result.Code = RandomCodeCreator.CreatRandomNum(VerificationOptions.Default.CodeCharacterCount);
+                    result.Code = RandomCodeCreator.CreatRandomNum(param.CharacterCount);
                     break;
                 case CodeCharacterTypeEnum.NumberAndCharacter:
-                    result.Code = RandomCodeCreator.CreatRandomNumAndChar(VerificationOptions.Default.CodeCharacterCount);
+                    result.Code = RandomCodeCreator.CreatRandomNumAndChar(param.CharacterCount);
                     break;
             }
-            result.Image = RandomCodeImageCreator.Create(result.Code, VerificationOptions.Default.CodeFontSize);
-
-            this.store.Add(result.Key, result.Code, VerificationOptions.Default.CodeCacheExpire);
+            result.Image = RandomCodeImageCreator.Create(result.Code, param.FontSize);
 
             return result;
         }
