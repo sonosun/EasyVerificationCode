@@ -38,7 +38,7 @@ namespace EasyVerificationCode
 
             return result;
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -76,6 +76,9 @@ namespace EasyVerificationCode
         /// <returns></returns>
         public bool Verify(string key, string code)
         {
+            //code为空，直接返回错误
+            if (string.IsNullOrEmpty(code)) return false;
+
             return string.Compare(this.store.GetCode(key), code, VerificationOptions.Default.IgnoreCase) == 0;
         }
     }
