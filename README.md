@@ -98,7 +98,7 @@ public class Startup
     }
 ``` 
 
-#### 前端展示销售
+#### 前端效果展示
 
 ![](./resource/images/verification_code_1.png '描述')
 
@@ -117,7 +117,7 @@ public void ConfigureServices(IServiceCollection services)
 
         }
 ```
-说明：`KeyPrefix` 是redis缓存的key前缀，起到对缓存项分组的作用。可以为空，但建议使用 vcode:
+说明：`KeyPrefix` 是redis缓存的key前缀，起到对缓存项分组的作用。可以为空，但建议使用 `vcode:`
 
 ### 配置校验码生成细节
 通过对`options`进行赋值，可以定制校验码
