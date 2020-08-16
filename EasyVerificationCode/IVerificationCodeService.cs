@@ -6,7 +6,7 @@ using System.Text;
 namespace EasyVerificationCode
 {
     /// <summary>
-    /// 
+    /// 校验码服务接口
     /// </summary>
     public interface IVerificationCodeService
     {
