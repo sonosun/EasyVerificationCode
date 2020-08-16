@@ -16,6 +16,7 @@ namespace EasyVerificationCode
             CodeFontSize = 18,
             CodeType = CodeCharacterTypeEnum.NumberAndCharacter,
             IgnoreCase = true,
+            UseOnce = true,
         };
 
         /// <summary>
@@ -42,5 +43,10 @@ namespace EasyVerificationCode
         /// 是否忽略字母大小写(默认为true)
         /// </summary>
         public bool IgnoreCase { get; set; }
+
+        /// <summary>
+        /// 只验证一次（验证通过后，删除校验码，防止用一个校验码反复提交）
+        /// </summary>
+        public bool UseOnce { get; set; }
     }
 }

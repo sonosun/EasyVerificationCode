@@ -79,7 +79,13 @@ namespace EasyVerificationCode
             //code为空，直接返回错误
             if (string.IsNullOrEmpty(code)) return false;
 
-            return string.Compare(this.store.GetCode(key), code, VerificationOptions.Default.IgnoreCase) == 0;
+            bool success = string.Compare(this.store.GetCode(key), code, VerificationOptions.Default.IgnoreCase) == 0;
+            if (success && VerificationOptions.Default.UseOnce)
+            {
+                this.store.Remove(key);
+            }
+
+            return success;
         }
     }
 }

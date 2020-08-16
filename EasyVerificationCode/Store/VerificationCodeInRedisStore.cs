@@ -38,5 +38,15 @@ namespace EasyVerificationCode.Store
         {
             return this.store.GetString(key);
         }
+
+        /// <summary>
+        /// 移除校验码
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public void Remove(string key)
+        {
+            this.store.Remove(key);
+        }
     }
 }

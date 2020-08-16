@@ -23,5 +23,12 @@ namespace EasyVerificationCode.Store
         /// <param name="key"></param>
         /// <returns></returns>
         string GetCode(string key);
+
+        /// <summary>
+        /// 移除校验码
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        void Remove(string key);
     }
 }
