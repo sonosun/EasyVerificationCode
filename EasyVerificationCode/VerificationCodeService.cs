@@ -49,7 +49,7 @@ namespace EasyVerificationCode
             if (param == null) return null;
 
             VerificationCode result = new VerificationCode();
-            result.Key = Guid.NewGuid().ToString();
+            result.Key = Guid.NewGuid().ToString("N");
 
             switch (param.Type)
             {
