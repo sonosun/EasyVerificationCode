@@ -26,7 +26,8 @@ namespace EasyVerificationCodeDemo
         public void ConfigureServices(IServiceCollection services)
         {
             //注册校验码服务
-            services.AddVerificationCode(new RedisOptions() { RedisConnection = "127.0.0.1:6379", KeyPrefix = "vc:" });
+            services.AddVerificationCode();
+            //services.AddVerificationCode(new RedisOptions() { RedisConnection = "127.0.0.1:6379", KeyPrefix = "vc:" });
 
             services.Configure<CookiePolicyOptions>(options =>
             {
