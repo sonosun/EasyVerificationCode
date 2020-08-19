@@ -160,8 +160,46 @@ public void ConfigureServices(IServiceCollection services)
             return View();
         }
 ```
+---
+
+## Linux或Docker部署可能遇到的问题：
 
 
+```
+Exception：
+    An unhandled exception has occurred while executing the request.
+    System.TypeInitializationException: The type initializer for 'Gdip' threw an exception. 
+    ---> System.DllNotFoundException: Unable to load shared library 'libdl' or one of its dependencies. In order to help diagnose loading problems, consider setting the LD_DEBUG environment variable: liblibdl: cannot open shared object file: No such file or directory
+```
+这是由于项目中使用了System.Drawing.Common库，在Linux环境下，需要安装 `libdl.so`和`libgdiplus.so` 并建立文件链接，下面的命令可以解决Linux环境部署的问题：
+```
+ln -s /lib/x86_64-linux-gnu/libdl-2.24.so /lib/x86_64-linux-gnu/libdl.so
+
+apt-get update
+apt-get install libgdiplus -y && ln -s libgdiplus.so gdiplus.dll
+```
+
+Demo项目中添加了`Dockerfile`文件，用于生成Docker镜像。
+
+启动命令行，进入到`Dockerfile`所在目录
+
+生成Docker镜像：
+```
+docker build -t easy-verification-code --rm . --network=host
+```
+运行Docker容器：
+```
+docker run -it -p 5004:80 --name easy-verify easy-verification-code
+```
+
+其中`Dockerfile`文件中,下面的三行命令，用来安装依赖包
+
+```
+##下面三行用于解决linux环境下，依赖包的问题
+RUN ln -s /lib/x86_64-linux-gnu/libdl-2.24.so /lib/x86_64-linux-gnu/libdl.so
+RUN apt-get update
+RUN apt-get install libgdiplus -y && ln -s libgdiplus.so gdiplus.dll
+```
 # 结语
 
 图形校验码起到防止恶意提交，人机校验的作用，在绝大多数项目中都会使用。
