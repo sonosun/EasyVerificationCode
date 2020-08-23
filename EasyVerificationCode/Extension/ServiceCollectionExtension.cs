@@ -36,7 +36,7 @@ namespace EasyVerificationCode
             services.AddMemoryCache();
             services.AddSingleton(typeof(IVerificationCodeService), typeof(VerificationCodeService));
             services.AddSingleton(typeof(IVerificationCodeStore), typeof(VerificationCodeInRedisStore));
-            services.AddDistributedRedisCache(redis =>
+            services.AddStackExchangeRedisCache(redis =>
             {
                 redis.Configuration = redisOptions.RedisConnection;
                 redis.InstanceName = redisOptions.KeyPrefix;

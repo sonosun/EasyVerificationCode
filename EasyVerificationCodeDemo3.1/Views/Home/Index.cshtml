@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div style="text-align: center;">
+    <h1 class="display-4">Welcome</h1>
+    <input id="code" type="text" />
+    <img src="data:image/png;base64,@this.ViewBag.Image" />
+    <input type="button" value="校验" onclick="checkClick()" />
+    <br />
+    <span id="result"></span>
+    <br />
+    <span>Key:@this.ViewBag.Key</span>
+</div>
+
+<script type="text/javascript">
+    var key = "@this.ViewBag.Key";
+    function checkClick() {
+        var code = $("#code").val();
+        $.ajax({
+            url: "/home/verifyCode",
+            method: "POST",
+            data: { key: key, code: code },
+            success: function (response) {
+                $("#result").text(response);
+            }
+        });
+    }
+</script>

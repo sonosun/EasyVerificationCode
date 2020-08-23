@@ -1,30 +1,26 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.1;netcoreapp2.2</TargetFrameworks>
-    <Version>2.2.0.0</Version>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Version>3.1.0.0</Version>
     <Description>A graphic verification code generation and verification module under .net core platform. 
 It will be very easy to generate and verify graphic verification code.
 
 .net core平台下的图形校验码生成和校验模块。 
 仅需几行代码就可以完成图形校验码生成和校验工作，让开发人员更专注于业务。
 2.1.0.1：二维码验证通过之后即删除，防止重复使用一个二维码进行提交
-2.2.0.0：可同时支持.net core2.1和2.2两个版本</Description>
+2.2.0.0：可同时支持.net core2.1和2.2两个版本
+3.1.0.0：支持.net core3.1</Description>
     <Authors>Liu Chao</Authors>
     <PackageProjectUrl>https://github.com/sonosun/EasyVerificationCode</PackageProjectUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.1'">
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Redis" Version="2.1.0" />
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="3.1.7" />
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="3.1.7" />
     <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.2'">
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Redis" Version="2.2.0" />
-    <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
-  </ItemGroup>
 
 </Project>
